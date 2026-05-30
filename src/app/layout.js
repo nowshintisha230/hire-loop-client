@@ -1,22 +1,10 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import NavBar from "@/components/NavBar";
-import Footer from "@/components/Footer";
-import StaticSection from "@/components/StaticSection";
-import SmartJobSections from "@/components/SmartJobSections";
-import JobFeatureHighlight from "@/components/JobFeatureHighlight";
-import PricingSection from "@/components/PricingSection";
-import CTASection from "@/components/CTASection";
+import { ToastProvider } from "@heroui/react";
+import ConditionalLayout from "@/components/ConditionalLayout";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
+const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
 
 export const metadata = {
   title: "HireLoop",
@@ -25,20 +13,11 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html
-      lang="en"
-    data-theme="dark"
-      className={`${geistSans.variable} ${geistMono.variable} dark h-full antialiased`}
-    >
-      <body className="">
-      <NavBar></NavBar>
-     <StaticSection></StaticSection>
-     <SmartJobSections></SmartJobSections>
-     <JobFeatureHighlight></JobFeatureHighlight>
-     <PricingSection></PricingSection>
-    <CTASection></CTASection>
-      <main>{children}</main>
-      <Footer></Footer></body>
+    <html lang="en" data-theme="dark" className={`${geistSans.variable} ${geistMono.variable} dark h-full antialiased`}>
+      <body>
+        <ToastProvider placement="top-right" />
+        <ConditionalLayout>{children}</ConditionalLayout>
+      </body>
     </html>
   );
 }
