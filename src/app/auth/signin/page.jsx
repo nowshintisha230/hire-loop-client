@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Input, Button, Card } from "@heroui/react";
 import { toastQueue } from "@heroui/react";
 import { Mail, Lock, ArrowRight } from "lucide-react";
@@ -10,6 +10,7 @@ import { Mail, Lock, ArrowRight } from "lucide-react";
 export default function SigninPage() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -38,7 +39,9 @@ export default function SigninPage() {
         timeout: 2000,
       });
 
-      setTimeout(() => router.push("/"), 500);
+      const callbackUrl = searchParams.get("callbackUrl");
+      const redirectTo = callbackUrl && callbackUrl.startsWith("/") ? callbackUrl : "/";
+      setTimeout(() => router.push(redirectTo), 500);
     } catch (err) {
       toastQueue.add({
         title: "Sign in failed",
