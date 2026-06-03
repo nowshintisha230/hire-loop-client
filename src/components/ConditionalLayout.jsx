@@ -18,15 +18,17 @@ export default function ConditionalLayout({ children }) {
   }
 
   return (
-    <>
+    <div className="flex flex-col min-h-screen">
       <NavBar />
-      <StaticSection />
-      <SmartJobSections />
-      <JobFeatureHighlight />
-      <PricingSection />
-      <CTASection />
-      <main>{children}</main>
-      <Footer />
-    </>
+      <main className="flex-1 md:ml-[260px]">
+        {children}
+        <StaticSection />
+        <SmartJobSections />
+        <JobFeatureHighlight />
+        <PricingSection />
+        <CTASection />
+      </main>
+      <Footer className="md:ml-[260px]" />
+    </div>
   );
 }
